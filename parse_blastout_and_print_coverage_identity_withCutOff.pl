@@ -26,12 +26,11 @@ pod2usage( { -message => $message_text ,
 
 open OUT, ">$file.parsed" or die; # open file to store result
 print OUT "Match_ID\tCoverage\tPercent identity";
-####################################################################
-######parsing the blastout file and get the best match#######
-####################################################################
+##########################################################################################
+######parsing the blastout file and print out hsps with coverage and identity above cutoff
+##########################################################################################
 my $in = new Bio::SearchIO(-format => 'blast', 
                            -file   => "$file");                          
-my $maxmatchlen=0;
 
 while( my $result = $in->next_result ) {
 
@@ -57,8 +56,6 @@ my $queryname = $result->query_name;
 				{
 					print OUT "$hitname\t$coverage\t$percid\n";
 				}
-
-
 		}
 }
 }
